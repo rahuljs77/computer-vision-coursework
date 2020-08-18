@@ -1,0 +1,43 @@
+# **Finding Lane Lines on the Road** 
+
+
+**Finding Lane Lines on the Road**
+
+The goals / steps of this project are the following:
+* Make a pipeline that finds lane lines on the road
+* Reflect on your work in a written report
+
+
+[//]: # (Image References)
+
+[image1]: ./examples/grayscale.jpg "Grayscale"
+
+---
+
+### Reflection
+
+### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
+
+My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I applied guassian blur to
+the grayscale image at a kernel value of 9. Next the edges of the image are found using canny edge detection.
+The upper limit is 150 and the lower limit is 50. Next the lines in the image coming from the canny edge detection
+are found using the Hough transform. The hough transform gives us the 'x' and 'y' coordinates of the lines. 
+these 'x' and 'y' coordinates are checked whether they are inside the masked region, which in this case is a triangle.
+Next the slope of each line is separated based on left lane or right lane, i.e if the slope is positive then the line 
+belongs to left lane and vice versa. Next the average of all the slopes and average of intercepts are found. This gives
+us a single line equation for both left and right lanes. The starting and ending points of the line are defined based on 
+the boundaries of the masking region. This line plotted on a black image and then overlayed on the 
+original image.
+
+
+
+### 2. Identify potential shortcomings with your current pipeline
+
+One potential shortcoming is that in the video feed the line flickers a lot as supposed to a smooth transition
+
+
+### 3. Suggest possible improvements to your pipeline
+
+Reduce the flickering between each frame. 
+
+This project only detects straight lines, the draw_lines() function can further be optimised for curves
